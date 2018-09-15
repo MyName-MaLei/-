@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    ul {
+      list-style: none
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    
+    div {
+      position: relative;
+      width: 1200px;
+      height: 400px;
+      margin: 50px auto;
+      border: 1px solid red;
+      overflow: hidden;
+    }
+    
+    div li {
+      width: 1200px;
+      height: 400px;
+      /*float: left;*/
+      position: absolute;
+    }
+    
+    div ul {
+      width: 1200px;
+    }
+  </style>
+</head>
+<body>
+<div id="box">
+  <ul>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+</div>
+
+<script>
+  var box = document.getElementById('box');
+  var list = box.children[0];
+  var lis = list.children;
+
+  for(var i = 0; i < lis.length;i++){
+    lis[i].style.left = i *240 + 'px';
+    lis[i].style.backgroundImage = 'url(images/' + (i + 1) + '.jpg)';
+    lis[i].setAttribute('data-index',i);
+    lis[i].onmouseover = function(){
+      var index = this.getAttribute('data-index');
+      for(var i = 0; i < lis.length; i++){
+        if( i < index){
+          move(lis[i], i * 100);
+        }else{
+          move(lis[i], i *100 + 700);
+        }
+      }
+    }
+    lis[i].onmouseout = function(){
+      for(var i = 0; i < lis.length; i++){
+        move(lis[i],i*240);
+      }
+    }
+  };
+
+    function move(ele,target){
+                    clearInterval(ele.timer);
+                    ele.timer = setInterval(function(){
+                        var current = ele.offsetLeft;
+                        var step = (target - current) /10;
+                        step = step > 0 ? Math.ceil(step) : Math.floor(step);
+                        //设置运动轨迹
+                        current = current + step;
+                        ele.style.left = current + 'px';
+                    },10);
+                };
+  
+</script>
+</body>
+</html>

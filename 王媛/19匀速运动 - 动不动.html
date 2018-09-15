@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin : 0;
+            padding:0;
+        }
+        div{
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            background-color: red;
+        }
+        #box2 {
+            top:200px;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn1">按钮1</button>
+    <!-- <button id="btn2">按钮2</button> -->
+    <div id="box"></div>
+    <div id="box2"></div>
+
+    <script>
+        var box = document.getElementById('box');
+        var box2 = document.getElementById('box2');
+        var btn1 = document.getElementById('btn1');
+        // var btn2 = document.getElementById('btn2');
+        var timer = null;
+
+        btn1.onclick = function(){
+            // move(box,400);
+            move(box2,400);            
+        };
+     
+        
+
+
+        function move(ele,target){
+            clearInterval(timer);            
+            timer = setInterval(function(){  
+                //获取元素当前位置
+                var current  = ele.offsetLeft;
+                //设置步长
+                var step = 10;
+                
+                //为了让元素可以往返运动, 设置正负的步长
+                step = target > current ? step : -step;
+                    
+                //设置运动条件
+                //这是条件,当目标位置减去当前位置的值大于步长时,接着运动,否则直接让元素停留在目标位置
+                if(Math.abs(current - target) >= Math.abs(step)){
+                    //设置运动公式 : 当前位置(新) = 当前位置(旧) + 步长
+                    current = current + step;
+                    ele.style.left = current + 'px';
+                }else {
+                    ele.style.left = target + 'px';
+                    clearInterval(timer);
+                }//if end
+            },20); //dingshiqi end
+        }; //fun end 
+
+
+        // function move(ele, target){
+        //     clearInterval(timer);
+        //     timer = setInterval(function(){
+        //         //获取当前元素的位置
+        //         current = box.offsetLeft;
+        //         //设置步长
+        //         step  = 10;
+        //         step = target > current ? step : -step;
+
+        //         //设置判断条件
+        //         if(current !== target){
+        //             current = current + step;
+        //             ele.style.left = current + 'px';
+        //         }else{
+        //             clearInterval(timer);
+        //         };
+        //     },20);
+        // };
+
+
+
+
+        // function move(ele, target){
+        //     clearInterval(timer);
+
+        //     timer = setInterval(function(){
+        //         //获取当前元素的位置
+        //         var current = box.offsetLeft;
+        //         //设置步长
+        //         step = 10;
+        //         step = target > current ? step : -step;
+
+        //         //设置元素运动条件
+        //         if(current !== target){
+        //             current = current + step;
+        //             ele.style.left = current + 'px';
+        //         }else{
+        //             clearInterval(timer);
+        //         };
+
+        //     },20);
+        // };
+
+
+        // btn1.onclick=function(){
+        //     move(box, 400);
+        // };
+        // btn2.onclick = function(){
+        //     move(box,800);
+        // };
+
+        
+    </script>
+</body>
+</html>
